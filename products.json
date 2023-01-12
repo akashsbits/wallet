@@ -1,0 +1,95 @@
+[
+  {
+    "description": "accent chair",
+    "amount": 25
+  },
+  {
+    "description": "albany sectional",
+    "amount": 109
+  },
+  {
+    "description": "albany table",
+    "amount": 309
+  },
+  {
+    "description": "armchair",
+    "amount": 125
+  },
+  {
+    "description": "bar stool",
+    "amount": 40
+  },
+  {
+    "description": "dining table",
+    "amount": 42
+  },
+  {
+    "description": "emperor bed",
+    "amount": 23
+  },
+  {
+    "description": "entertainment center",
+    "amount": 59
+  },
+  {
+    "description": "high-back bench",
+    "amount": 39
+  },
+
+  {
+    "description": "leather sofa",
+    "amount": 99
+  },
+  {
+    "description": "modern bookshelf",
+    "amount": 31
+  },
+  {
+    "description": "modern poster",
+    "amount": 30
+  },
+  {
+    "description": "shelf",
+    "amount": 30
+  },
+  {
+    "description": "simple chair",
+    "amount": 109
+  },
+  {
+    "description": "sofa set",
+    "amount": 129
+  },
+  {
+    "description": "suede armchair",
+    "amount": 15
+  },
+  {
+    "description": "utopia sofa",
+    "amount": 79
+  },
+  {
+    "description": "vase table",
+    "amount": 120
+  },
+  {
+    "description": "wooden bed",
+    "amount": 25
+  },
+  {
+    "description": "wooden desk",
+    "amount": 15
+  },
+  {
+    "description": "wooden desk",
+    "amount": 40
+  },
+  {
+    "description": "wooden table",
+    "amount": 23
+  },
+  {
+    "description": "a first wooden table",
+    "amount": 23
+  }
+]

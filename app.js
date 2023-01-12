@@ -1,6 +1,10 @@
 const express = require("express");
 const connectDB = require("./db");
 require("dotenv").config();
+const walletRouter = require("./routes/wallet");
+const transactionRouter = require("./routes/transaction");
+const notFound = require("./middlewares/not-found");
+const error = require("./middlewares/error");
 
 const app = express();
 
@@ -10,9 +14,11 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({ data: "Welecome to digital wallet." });
-});
+app.use("/", walletRouter);
+app.use("/wallet", transactionRouter);
+
+app.use(notFound);
+app.use(error);
 
 const start = async () => {
   try {
