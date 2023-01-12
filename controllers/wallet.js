@@ -1,7 +1,7 @@
 const Wallet = require("../models/wallet");
 const Transaction = require("../models/transaction");
 
-const walletHandler = async (req, res) => {
+const walletHandler = async (req, res, next) => {
   try {
     if (!req.body.name || !req.body.balance) {
       throw new Error("name and balance are required fields.");
@@ -31,10 +31,11 @@ const walletHandler = async (req, res) => {
     res.status(200).json({ walletId, balance, transactionId, name, date });
   } catch (err) {
     console.error(err);
+    next(err);
   }
 };
 
-const walletIdHandler = async (req, res) => {
+const walletIdHandler = async (req, res, next) => {
   try {
     if (!req.params.walletId) {
       throw new Error("Wallet Id is required.");
@@ -51,6 +52,7 @@ const walletIdHandler = async (req, res) => {
     res.status(200).json({ walletId, balance, name, createdAt });
   } catch (err) {
     console.error(err);
+    next(err);
   }
 };
 

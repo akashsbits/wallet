@@ -2,7 +2,7 @@ const Wallet = require("../models/wallet");
 const Transaction = require("../models/transaction");
 const Product = require("../models/product");
 
-const addCreditHandler = async (req, res) => {
+const addCreditHandler = async (req, res, next) => {
   try {
     if (!req.params.walletId) {
       throw new Error("Wallet id is required.");
@@ -55,32 +55,38 @@ const addCreditHandler = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    next(err);
   }
 };
 
-const transactionsHandler = async (req, res) => {
-  if (!req.params.walletId) {
-    throw new Error("walletId is a required parameter.");
+const transactionsHandler = async (req, res, next) => {
+  try {
+    if (!req.params.walletId) {
+      throw new Error("walletId is a required parameter.");
+    }
+
+    const skip = req.query.skip ? req.query.skip : null;
+    const limit = req.query.limit ? req.query.limit : null;
+    const { walletId } = req.params;
+
+    const transactions = await Transaction.find(
+      { walletId },
+      { walletId: 0 },
+      { skip, limit }
+    );
+
+    if (!transactions) {
+      res.status(200).json({ transactions: null });
+    }
+
+    res.status(200).json({ transactions });
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
-
-  const skip = req.query.skip ? req.query.skip : null;
-  const limit = req.query.limit ? req.query.limit : null;
-  const { walletId } = req.params;
-
-  const transactions = await Transaction.find(
-    { walletId },
-    { walletId: 0 },
-    { skip, limit }
-  );
-
-  if (!transactions) {
-    res.status(200).json({ transactions: null });
-  }
-
-  res.status(200).json({ transactions });
 };
 
-const purchaseHandler = async (req, res) => {
+const purchaseHandler = async (req, res, next) => {
   try {
     if (!req.body.productId) {
       throw new Error("productId is a required field.");
@@ -131,6 +137,7 @@ const purchaseHandler = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    next(err);
   }
 };
 
