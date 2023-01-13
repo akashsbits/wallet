@@ -1,14 +1,21 @@
+const { Mutex } = require("async-mutex");
 const Wallet = require("../models/wallet");
 const Transaction = require("../models/transaction");
 
+const mutex = new Mutex();
+
 const walletHandler = async (req, res, next) => {
   try {
+    const release = await mutex.acquire(); // lock
+
     if (!req.body.name || !req.body.balance) {
       throw new Error("name and balance are required fields.");
     }
 
     const { name: _name, balance: _balance } = req.body;
     const data = await Wallet.create({ name: _name, balance: _balance });
+
+    release(); // unlock
 
     if (!data) {
       throw new Error("Unable to create wallet.");
@@ -37,12 +44,16 @@ const walletHandler = async (req, res, next) => {
 
 const walletIdHandler = async (req, res, next) => {
   try {
+    const release = await mutex.acquire(); // lock
+
     if (!req.params.walletId) {
       throw new Error("Wallet Id is required.");
     }
 
     const { walletId: _walletId } = req.params;
     const data = await Wallet.findOne({ walletId: _walletId });
+
+    release(); // unlock
 
     if (!data) {
       throw new Error("Wallet not found.");
