@@ -1,9 +1,7 @@
-const { Mutex } = require("async-mutex");
 const Wallet = require("../models/wallet");
 const Transaction = require("../models/transaction");
 const Product = require("../models/product");
-
-const mutex = new Mutex();
+const mutexWrapper = require("../helpers/mutex-wrapper");
 
 const addCreditHandler = async (req, res, next) => {
   try {
@@ -18,15 +16,14 @@ const addCreditHandler = async (req, res, next) => {
     const { amount } = req.body;
     const description = req.body.description;
 
-    const release = await mutex.acquire(); // lock
-
-    const data = await Wallet.findOneAndUpdate(
-      { walletId },
-      { $inc: { balance: amount } },
-      { new: true }
+    const data = await mutexWrapper(
+      async () =>
+        await Wallet.findOneAndUpdate(
+          { walletId },
+          { $inc: { balance: amount } },
+          { new: true }
+        )
     );
-
-    release(); // unlock
 
     if (!data) {
       throw new Error("Wallet not found.");
@@ -110,15 +107,14 @@ const purchaseHandler = async (req, res, next) => {
     const { amount } = product;
     const { walletId } = req.params;
 
-    const release = await mutex.acquire();
-
-    const wallet = await Wallet.findOneAndUpdate(
-      { walletId },
-      { $inc: { balance: -amount } },
-      { new: true }
+    const wallet = await mutexWrapper(
+      async () =>
+        await Wallet.findOneAndUpdate(
+          { walletId },
+          { $inc: { balance: -amount } },
+          { new: true }
+        )
     );
-
-    release();
 
     if (!wallet) {
       throw new Error("Wallet not found.");
