@@ -18,8 +18,8 @@ Simple APIs built using [Express.js](https://expressjs.com/) and [MongoDB](https
 
 ## URL
 
-[http://3.7.248.102](http://3.7.248.102)
+[http://13.233.251.202](http://13.233.251.202)
 
 ## API Documentation
 
-[http://3.7.248.102/api/docs](http://3.7.248.102/api/docs)
+[http://13.233.251.202/api/docs](http://13.233.251.202/api/docs)

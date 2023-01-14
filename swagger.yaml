@@ -4,7 +4,7 @@ info:
   contact: {}
   version: "1.0"
 servers:
-  - url: http://3.7.248.102
+  - url: http://13.233.251.202
     variables: {}
 paths:
   /wallet:

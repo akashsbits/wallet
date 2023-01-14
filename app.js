@@ -29,7 +29,7 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(helmet()); // Add some extra headers for app security
+app.use(helmet.crossOriginOpenerPolicy({ policy: "unsafe-none" })); // Add some extra headers for app security
 app.use(cors()); // Allows cross origin resource sharing
 
 const logFormat = process.env.NODE_ENV === "production" ? "tiny" : "dev";

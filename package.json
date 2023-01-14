@@ -8,7 +8,7 @@
     "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Akash Srivastava",
   "license": "ISC",
   "dependencies": {
     "async-mutex": "^0.4.0",
