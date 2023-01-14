@@ -1,4 +1,5 @@
 const express = require("express");
+const { walletHandler, walletIdHandler } = require("../controllers/wallet");
 const {
   addCreditHandler,
   transactionsHandler,
@@ -7,6 +8,8 @@ const {
 
 const router = express.Router();
 
+router.post("/", walletHandler);
+router.get("/:walletId", walletIdHandler);
 router
   .route("/:walletId/transaction")
   .post(addCreditHandler)

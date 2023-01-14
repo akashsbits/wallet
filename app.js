@@ -7,8 +7,7 @@ const logger = require("morgan"); // http logs
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const connectDB = require("./db");
-const walletRouter = require("./routes/wallet");
-const transactionRouter = require("./routes/transaction");
+const routes = require("./routes");
 const notFound = require("./middlewares/not-found");
 const error = require("./middlewares/error");
 const apiDocs = YAML.load("./swagger.yaml");
@@ -36,8 +35,14 @@ app.use(cors()); // Allows cross origin resource sharing
 const logFormat = process.env.NODE_ENV === "production" ? "tiny" : "dev";
 app.use(logger(logFormat));
 
-app.use("/", walletRouter);
-app.use("/wallet", transactionRouter);
+app.get("/", (req, res) =>
+  res
+    .status(200)
+    .send(
+      '<div style="display: flex; flex-direction: column; align-items: center"><h1>Welcome to Wallet APIs.</h1><br><a href="/api/docs"><h3>API Documentation</h3></a></div>'
+    )
+);
+app.use("/wallet", routes);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(apiDocs));
 
 app.use(notFound);

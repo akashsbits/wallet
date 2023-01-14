@@ -38,7 +38,7 @@ paths:
           headers: {}
       deprecated: false
       security: []
-  /{walletId}:
+  /wallet/{walletId}:
     get:
       tags:
         - Wallet
