@@ -19,7 +19,9 @@
     "helmet": "^6.0.1",
     "mongoose": "^6.8.3",
     "morgan": "^1.10.0",
-    "uuid": "^9.0.0"
+    "swagger-ui-express": "^4.6.0",
+    "uuid": "^9.0.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

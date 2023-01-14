@@ -4,11 +4,14 @@ const rateLimit = require("express-rate-limit"); // Prevent DDOS
 const cors = require("cors");
 const express = require("express");
 const logger = require("morgan"); // http logs
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
 const connectDB = require("./db");
 const walletRouter = require("./routes/wallet");
 const transactionRouter = require("./routes/transaction");
 const notFound = require("./middlewares/not-found");
 const error = require("./middlewares/error");
+const apiDocs = YAML.load("./swagger.yaml");
 
 const app = express();
 
@@ -35,6 +38,7 @@ app.use(logger(logFormat));
 
 app.use("/", walletRouter);
 app.use("/wallet", transactionRouter);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(apiDocs));
 
 app.use(notFound);
 app.use(error);

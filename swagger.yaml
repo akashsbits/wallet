@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Wallet-Apis-Pro
+  contact: {}
+  version: "1.0"
+servers:
+  - url: http://13.235.83.111
+    variables: {}
+paths:
+  /wallet:
+    post:
+      tags:
+        - Wallet
+      summary: Create Wallet
+      operationId: CreateWallet
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - name
+                - balance
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: brian
+                balance:
+                  type: integer
+                  format: int32
+                  example: 9000
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /{walletId}:
+    get:
+      tags:
+        - Wallet
+      summary: Get Wallet Details
+      operationId: GetWalletDetails
+      parameters:
+        - name: walletId
+          in: path
+          description: "wallet Id"
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 82a0623c-77df-4e35-aeaa-cdb059fd2760
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /wallet/{walletId}/transaction:
+    post:
+      tags:
+        - Wallet
+      summary: Add Credit
+      operationId: AddCredit
+      parameters:
+        - name: walletId
+          in: path
+          description: "wallet Id"
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 82a0623c-77df-4e35-aeaa-cdb059fd2760
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - amount
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  format: int32
+                  example: 100
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+    get:
+      tags:
+        - Wallet
+      summary: Get All Transactions
+      operationId: GetAllTransactions
+      parameters:
+        - name: walletId
+          in: path
+          description: "wallet Id"
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 82a0623c-77df-4e35-aeaa-cdb059fd2760
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /wallet/{walletId}/purchase:
+    post:
+      tags:
+        - Wallet
+      summary: Make Purchase
+      operationId: MakePurchase
+      parameters:
+        - name: walletId
+          in: path
+          description: "wallet Id"
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 82a0623c-77df-4e35-aeaa-cdb059fd2760
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - productId
+              type: object
+              properties:
+                productId:
+                  type: string
+                  example: e2c131b7-2b84-4395-b5c3-436d5a8fb501
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+tags:
+  - name: Wallet
+    description: ""
